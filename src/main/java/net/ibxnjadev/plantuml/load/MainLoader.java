@@ -105,12 +105,13 @@ public class MainLoader {
         if(!line.startsWith("token")) {
             return null;
         }
-        String token = line.substring(
-                line.indexOf(':') + 1,
-                line.length() - 1
-        ).replace("\"","")
-                        .trim();
-        return token;
+        reader.close();
+
+        return line.substring(
+                        line.indexOf(':') + 1,
+                        line.length() - 1
+                ).replace("\"","")
+                .trim();;
     }
 
     private void handleCommands() {
