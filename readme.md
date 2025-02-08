@@ -5,6 +5,8 @@ Discord bot for generate UML diagrams using PlantUML
 PlantUML Discord Bot is a discord bot building in Java that permit generate diagramas
 using <a href="https://github.com/plantuml/plantuml">PlantUML</a>
 
+<img src="header.gif">
+
 # 🔨 Technologies
 * Java JDK
 * Maven 
