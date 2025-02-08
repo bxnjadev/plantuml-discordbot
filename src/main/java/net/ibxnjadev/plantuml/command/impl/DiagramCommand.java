@@ -10,8 +10,6 @@ import net.ibxnjadev.plantuml.util.PlantumlArrays;
 import reactor.core.publisher.Mono;
 
 import java.io.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class DiagramCommand implements CommandExecutor  {
 
