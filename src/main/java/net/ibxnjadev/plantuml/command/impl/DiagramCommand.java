@@ -46,6 +46,7 @@ public class DiagramCommand implements CommandExecutor  {
 
         String plantUmlCode = messageAll.
                 substring(3, messageAll.length() - 3).trim();
+        System.out.println("U = " + plantUmlCode);
 
         try (OutputStream outputStream = new FileOutputStream("diagram.png")) {
             plantumlDiagramCreator.output(plantUmlCode, outputStream);
