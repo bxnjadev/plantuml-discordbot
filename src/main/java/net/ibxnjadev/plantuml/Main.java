@@ -1,7 +1,6 @@
 package net.ibxnjadev.plantuml;
 
 import net.ibxnjadev.plantuml.load.MainLoader;
-import net.ibxnjadev.plantuml.util.PlantumlArrays;
 
 public class Main {
 

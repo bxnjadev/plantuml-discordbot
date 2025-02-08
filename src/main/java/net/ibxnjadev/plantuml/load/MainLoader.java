@@ -28,10 +28,11 @@ public class MainLoader {
 
     public void load() {
         initBot();
-        handleCommands();
 
-        commandMap.register("diagram",
+        commandMap.register(";p",
                 new DiagramCommand());
+
+        handleCommands();
     }
 
     /**

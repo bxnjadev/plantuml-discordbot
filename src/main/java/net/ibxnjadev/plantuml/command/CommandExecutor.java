@@ -1,7 +1,5 @@
 package net.ibxnjadev.plantuml.command;
 
-import discord4j.core.object.entity.Guild;
-import discord4j.core.object.entity.Member;
 import discord4j.core.object.entity.Message;
 import reactor.core.publisher.Mono;
 

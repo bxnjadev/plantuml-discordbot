@@ -31,7 +31,8 @@ public class PlantumlArrays {
             throw  new ArrayIndexOutOfBoundsException("The end is major that the start or the end is major that the size the array");
         }
 
-        int resultLength = length - (Math.abs(end - start) + 1);
+        int resultLength = Math.abs(end - start) + 1;
+        System.out.println("Length " + resultLength);
         T[] result = (T[]) Array.newInstance(clazz, resultLength);
         for(int i = 0; i < result.length; i ++, start++){
             result[i] = (T) array[start];
@@ -55,7 +56,7 @@ public class PlantumlArrays {
      */
 
 
-    public <T> T[] slice(Object[] array,
+    public static <T> T[] slice(Object[] array,
                         Class<T> clazz,
                         int end) {
         return slice(array, clazz, 0, end);
