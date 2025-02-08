@@ -11,15 +11,11 @@ public interface CommandExecutor {
      * This method is executed when a user interact
      * with a command from this bot
      * @param args array that contains all arguments
-     * @param guild the guild where the command is executed
-     * @param member the member that execute the command
      * @param message the message
      * @return a action that represent the response that execute the user
      */
 
     Mono<? extends Object> execute(String[] args,
-                                   Guild guild,
-                                   Member member,
                                    Message message);
 
 }

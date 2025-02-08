@@ -5,6 +5,7 @@ import discord4j.core.event.domain.message.MessageCreateEvent;
 import net.ibxnjadev.plantuml.command.BasicMessageCreateListener;
 import net.ibxnjadev.plantuml.command.CommandMap;
 import net.ibxnjadev.plantuml.command.CommandMapImpl;
+import net.ibxnjadev.plantuml.command.impl.DiagramCommand;
 
 public class MainLoader {
 
@@ -28,6 +29,9 @@ public class MainLoader {
     public void load() {
         initBot();
         handleCommands();
+
+        commandMap.register("diagram",
+                new DiagramCommand());
     }
 
     /**

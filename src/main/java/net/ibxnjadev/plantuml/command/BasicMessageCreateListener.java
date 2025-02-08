@@ -9,8 +9,6 @@ import java.util.function.Function;
 
 public class BasicMessageCreateListener implements Function<MessageCreateEvent, Publisher<? extends Object>> {
 
-    private final String PREFIX_COMMAND = ";p";
-
     private final CommandMap commandMap;
     public BasicMessageCreateListener(CommandMap commandMap){
         this.commandMap = commandMap;
@@ -23,18 +21,10 @@ public class BasicMessageCreateListener implements Function<MessageCreateEvent, 
         String[] args = rawMessage.split(" ");
         String nameCommand = args[0];
 
-        if(!nameCommand.equalsIgnoreCase(PREFIX_COMMAND)){
-            return Mono.empty();
-        }
-
         CommandExecutor executor = commandMap.getExecutor(nameCommand);
-
 
         return executor.execute(
                 args,
-                event.getGuild()
-                        .block(),
-                event.getMember().get(),
                 message
         );
     }
