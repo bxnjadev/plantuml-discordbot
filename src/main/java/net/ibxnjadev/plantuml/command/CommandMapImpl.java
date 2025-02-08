@@ -11,7 +11,6 @@ public class CommandMapImpl implements CommandMap {
     @Override
     public void register(String name, CommandExecutor executor) {
         name = name.toLowerCase();
-        System.out.println("Put = " + name);
         commands.put(name, executor);
     }
 

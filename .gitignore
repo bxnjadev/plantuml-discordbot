@@ -22,6 +22,7 @@ target/
 .sts4-cache
 
 .idea
+diagram.png
 
 ### NetBeans ###
 /nbproject/private/
