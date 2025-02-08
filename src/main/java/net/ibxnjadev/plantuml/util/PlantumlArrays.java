@@ -32,7 +32,6 @@ public class PlantumlArrays {
         }
 
         int resultLength = Math.abs(end - start) + 1;
-        System.out.println("Length " + resultLength);
         T[] result = (T[]) Array.newInstance(clazz, resultLength);
         for(int i = 0; i < result.length; i ++, start++){
             result[i] = (T) array[start];

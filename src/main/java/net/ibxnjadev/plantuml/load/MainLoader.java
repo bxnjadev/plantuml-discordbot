@@ -6,11 +6,14 @@ import net.ibxnjadev.plantuml.command.BasicMessageCreateListener;
 import net.ibxnjadev.plantuml.command.CommandMap;
 import net.ibxnjadev.plantuml.command.CommandMapImpl;
 import net.ibxnjadev.plantuml.command.impl.DiagramCommand;
+import net.ibxnjadev.plantuml.diagram.PlantumlDiagramCreator;
+import net.ibxnjadev.plantuml.diagram.PlantumlDiagramCreatorImpl;
 
 public class MainLoader {
 
     private DiscordClient client;
     private final CommandMap commandMap = new CommandMapImpl();
+    private final PlantumlDiagramCreator plantumlDiagramCreator = new PlantumlDiagramCreatorImpl();
     private final BasicMessageCreateListener basicMessageCreateListener = new BasicMessageCreateListener(commandMap);
 
     private final String token;
@@ -30,7 +33,7 @@ public class MainLoader {
         initBot();
 
         commandMap.register(";p",
-                new DiagramCommand());
+                new DiagramCommand(plantumlDiagramCreator));
 
         handleCommands();
     }

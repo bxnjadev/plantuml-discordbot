@@ -26,17 +26,13 @@ public class BasicMessageCreateListener implements Function<MessageCreateEvent, 
         String nameCommand = args[0];
         Optional<User> authorOptional = message.getAuthor();
 
-        if(authorOptional.isPresent()
-                && authorOptional.get().isBot()){
+        if (authorOptional.isPresent()
+                && authorOptional.get().isBot()) {
             return Mono.empty();
         }
 
         CommandExecutor executor = commandMap.getExecutor(nameCommand);
-        args = PlantumlArrays.slice(args, String.class, 1, args.length  - 1);
-
-        for (String arg : args) {
-            System.out.println(arg);
-        }
+        args = PlantumlArrays.slice(args, String.class, 1, args.length - 1);
 
         return executor.execute(
                 args,
