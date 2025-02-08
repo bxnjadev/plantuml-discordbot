@@ -14,7 +14,7 @@ import java.io.*;
 
 public class MainLoader {
 
-    private static final String INITIAL_CONTENT_FILE_TOKEN = "\"token\": \"\"";
+    private static final String INITIAL_CONTENT_FILE_TOKEN = "token: \"\"";
     private static final String FILE_NAME = "token.yml";
 
     private DiscordClient client;
@@ -45,6 +45,11 @@ public class MainLoader {
 
         handleCommands();
     }
+
+    /**
+     * Create and load the configuration bot file
+     * for start the discord bot
+     */
 
     private void loadConfiguration() {
 
@@ -88,7 +93,7 @@ public class MainLoader {
     /**
      * Read a file for get the registered token
      * @return the token obtained
-     * @throws IOException
+     * @throws IOException this exception is throw if there is an error reading the file
      */
 
     private String readToken(String fileName) throws IOException {
@@ -97,7 +102,7 @@ public class MainLoader {
         );
 
         String line = reader.readLine();
-        if(!line.startsWith("\"token\"")) {
+        if(!line.startsWith("token")) {
             return null;
         }
         String token = line.substring(
