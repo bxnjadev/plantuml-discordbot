@@ -9,19 +9,24 @@ import net.ibxnjadev.plantuml.command.impl.DiagramCommand;
 import net.ibxnjadev.plantuml.diagram.PlantumlDiagramCreator;
 import net.ibxnjadev.plantuml.diagram.PlantumlDiagramCreatorImpl;
 
+import java.io.*;
+
 public class MainLoader {
+
+    private static final String FILE_NAME = "token.yml";
 
     private DiscordClient client;
     private final CommandMap commandMap = new CommandMapImpl();
     private final PlantumlDiagramCreator plantumlDiagramCreator = new PlantumlDiagramCreatorImpl();
     private final BasicMessageCreateListener basicMessageCreateListener = new BasicMessageCreateListener(commandMap);
 
-    private final String token;
+    /**
+     * The token discord bot
+     */
 
+    private  String token;
 
-    public MainLoader(String token) {
-        this.token = token;
-    }
+    public MainLoader() {}
 
     /**
      * Start the server for run the discord bot
@@ -30,6 +35,19 @@ public class MainLoader {
       */
 
     public void load() {
+        String token = "";
+        try {
+            token = readToken(FILE_NAME);
+            if(token == null || token.isBlank()){
+                System.out.println("Error loading the token, please check the file name, exit the program");
+                System.exit(-1);
+            }
+            this.token = token;
+        } catch (IOException e) {
+            System.out.println("Error loading the token, please check the file name, exit the program");
+            throw new RuntimeException(e);
+        }
+
         initBot();
 
         commandMap.register(";p",
@@ -45,6 +63,29 @@ public class MainLoader {
 
     private void initBot() {
         client = DiscordClient.create(token);
+    }
+
+    /**
+     * Read a file for get the registered token
+     * @return the token obtained
+     * @throws IOException
+     */
+
+    private String readToken(String fileName) throws IOException {
+        BufferedReader reader = new BufferedReader(
+                new FileReader(fileName)
+        );
+
+        String line = reader.readLine();
+        if(!line.startsWith("\"token\"")) {
+            return null;
+        }
+        String token = line.substring(
+                line.indexOf(':') + 1,
+                line.length() - 1
+        ).replace("\"","")
+                        .trim();
+        return token;
     }
 
     private void handleCommands() {
