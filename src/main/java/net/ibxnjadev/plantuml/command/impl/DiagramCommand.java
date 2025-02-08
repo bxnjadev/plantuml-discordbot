@@ -13,6 +13,7 @@ import java.io.*;
 
 public class DiagramCommand implements CommandExecutor  {
 
+    private static final String FILE_NAME = "diagram.png";
     private static final String DELIMITER = "```";
 
     private final PlantumlDiagramCreator plantumlDiagramCreator;
@@ -36,7 +37,6 @@ public class DiagramCommand implements CommandExecutor  {
                                 args, String.class, 1, args.length - 1
                         )).trim();
 
-        System.out.println(messageAll);
         if(!(messageAll.startsWith(DELIMITER) &&
         messageAll.endsWith(DELIMITER))) {
             return channel.flatMap(c -> c.createMessage("The argument should contain the plantuml code between `"));
@@ -44,24 +44,17 @@ public class DiagramCommand implements CommandExecutor  {
 
         String plantUmlCode = messageAll.
                 substring(3, messageAll.length() - 3).trim();
-        System.out.println("U = " + plantUmlCode);
 
-        try (OutputStream outputStream = new FileOutputStream("diagram.png")) {
+        try (OutputStream outputStream = new FileOutputStream(FILE_NAME)) {
             plantumlDiagramCreator.output(plantUmlCode, outputStream);
+            MessageCreateFields.File file = MessageCreateFields.File.of(FILE_NAME,
+                    new FileInputStream(FILE_NAME));
 
-            File diagramFile = new File("diagram.png");
-            return channel.flatMap(c -> {
-                try {
-                    return c.createMessage(MessageCreateSpec
-                            .builder()
-                            .addFile(
-                                    MessageCreateFields.File.of("diagram.png", new FileInputStream(diagramFile))
-                            ).build()
-                    );
-                } catch (FileNotFoundException e) {
-                    return Mono.error(new RuntimeException(e));
-                }
-            });
+            return channel.flatMap(c -> c.createMessage(MessageCreateSpec
+                    .builder()
+                    .addFile(file)
+                    .build()
+            ));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

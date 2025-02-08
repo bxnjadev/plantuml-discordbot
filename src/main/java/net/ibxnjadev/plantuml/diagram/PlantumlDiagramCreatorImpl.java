@@ -22,7 +22,8 @@ public class PlantumlDiagramCreatorImpl implements PlantumlDiagramCreator {
     @Override
     public void output(String uml, OutputStream outputStream) throws IOException {
         SourceStringReader sourceStringReader = getSourceStringReader(uml);
-        sourceStringReader.outputImage(outputStream);
+        sourceStringReader.
+                outputImage(outputStream);
     }
 
     @Override

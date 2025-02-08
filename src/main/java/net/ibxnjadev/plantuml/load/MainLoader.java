@@ -62,7 +62,7 @@ public class MainLoader {
                 System.exit(-1);
             }
         } catch (IOException e) {
-            System.out.println("Error creating the file : " + FILE_NAME);
+            System.err.println("Error creating the file : " + FILE_NAME);
             throw new RuntimeException(e);
         }
 
@@ -75,7 +75,7 @@ public class MainLoader {
             }
             this.token = token;
         } catch (IOException e) {
-            System.out.println("Error loading the token, please check the file name, exit the program");
+            System.err.println("Error loading the token, please check the file name, exit the program");
             throw new RuntimeException(e);
         }
 
@@ -111,7 +111,7 @@ public class MainLoader {
                         line.indexOf(':') + 1,
                         line.length() - 1
                 ).replace("\"","")
-                .trim();;
+                .trim();
     }
 
     private void handleCommands() {
