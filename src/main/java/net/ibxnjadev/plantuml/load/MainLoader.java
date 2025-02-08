@@ -8,11 +8,13 @@ import net.ibxnjadev.plantuml.command.CommandMapImpl;
 import net.ibxnjadev.plantuml.command.impl.DiagramCommand;
 import net.ibxnjadev.plantuml.diagram.PlantumlDiagramCreator;
 import net.ibxnjadev.plantuml.diagram.PlantumlDiagramCreatorImpl;
+import net.ibxnjadev.plantuml.util.PlantumlFiles;
 
 import java.io.*;
 
 public class MainLoader {
 
+    private static final String INITIAL_CONTENT_FILE_TOKEN = "\"token\": \"\"";
     private static final String FILE_NAME = "token.yml";
 
     private DiscordClient client;
@@ -35,6 +37,30 @@ public class MainLoader {
       */
 
     public void load() {
+        loadConfiguration();
+        initBot();
+
+        commandMap.register(";p",
+                new DiagramCommand(plantumlDiagramCreator));
+
+        handleCommands();
+    }
+
+    private void loadConfiguration() {
+
+        try {
+            boolean response = PlantumlFiles
+                    .createFileIfNotExists(FILE_NAME, INITIAL_CONTENT_FILE_TOKEN);
+            if(response) {
+                System.out.println("Creating the initial file : " + FILE_NAME);
+                System.out.println("Please, configure this file for start the bot");
+                System.exit(-1);
+            }
+        } catch (IOException e) {
+            System.out.println("Error creating the file : " + FILE_NAME);
+            throw new RuntimeException(e);
+        }
+
         String token = "";
         try {
             token = readToken(FILE_NAME);
@@ -48,12 +74,6 @@ public class MainLoader {
             throw new RuntimeException(e);
         }
 
-        initBot();
-
-        commandMap.register(";p",
-                new DiagramCommand(plantumlDiagramCreator));
-
-        handleCommands();
     }
 
     /**
